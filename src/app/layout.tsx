@@ -1,6 +1,7 @@
 import './globals.css'
 import 'react-responsive-modal/styles.css';
 import { Inter } from 'next/font/google'
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: 'Classificações de Bens Econômicos',
