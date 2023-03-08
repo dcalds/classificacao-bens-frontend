@@ -62,8 +62,14 @@ export default function Home() {
         console.log(data);
 
         const xAxis = data.engelsCurvesResponse
-          .map((elm: { amount: any }) => elm.amount)
-          .reverse();
+          .map((elm: { amount: any }) => Number(elm.amount))
+          .sort(function(a: number, b: number){
+
+            return (a-b);
+        
+        });
+
+          console.log(xAxis);
         const yAxis = data.engelsCurvesResponse
           .map((elm: { income: any }) => elm.income)
           .reverse();
