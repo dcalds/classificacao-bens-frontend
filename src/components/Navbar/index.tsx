@@ -91,6 +91,17 @@ export const Navbar = ({ onClose, onSuccess, onError }: NavbarProps) => {
                 <span className="text-red-500">Preencha este campo</span>
               )}
             </div>
+            <div className="flex flex-col gap-3 max-w-xs mb-4">
+              <label htmlFor="product">{CONSTANTS.MODAL.REGISTRATION_LABEL}</label>
+              <input
+                className="border border-blue-500 rounded-lg px-4 py-2"
+                placeholder={CONSTANTS.MODAL.REGISTRATION_PLACEHOLDER}
+                {...register("registration", { required: true })}
+              />
+              {errors.name && (
+                <span className="text-red-500">Preencha este campo</span>
+              )}
+            </div>
 
             <ul className="flex flex-col gap-4">
               <label htmlFor="product">{CONSTANTS.MODAL.CURVE_LABEL}</label>

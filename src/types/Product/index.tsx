@@ -26,5 +26,6 @@ export type EngelsCurvesPostProps = {
 
 export type PostProductProps = {
     name: string,
+    registration: string,
     engelsCurvesPost: EngelsCurvesPostProps[]
 }

@@ -18,6 +18,8 @@ import { ApiResponseProps } from "@/types";
 import { CONSTANTS } from "@/utils/constants";
 import { ToastContainer, toast } from "react-toastify";
 
+import Chart from "react-apexcharts";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -59,25 +61,21 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => {
         setSelectedData(data);
-        console.log(data);
 
-        const xAxis = data.engelsCurvesResponse
-          .map((elm: { amount: any }) => Number(elm.amount))
-          .sort(function(a: number, b: number){
+        const orderedData = data.engelsCurvesResponse
+          .sort(function (a: any, b: any) {
+            return (Number(a.amount) - Number(b.amount));
+          });
 
-            return (a-b);
-        
-        });
+        const xAxis = orderedData
+          .map((elm: { amount: any }) => Number(elm.amount));
+        const yAxis = orderedData
+          .map((elm: { income: any }) => Number(elm.income));
 
-          console.log(xAxis);
-        const yAxis = data.engelsCurvesResponse
-          .map((elm: { income: any }) => elm.income)
-          .reverse();
-
-        const angularCoefficients = data.engelsCurvesResponse
+        const angularCoefficients = orderedData
           .map((elm: { angularCoefficient: any }) => elm.angularCoefficient)
           .reverse();
-        const classifications = data.engelsCurvesResponse
+        const classifications = orderedData
           .map((elm: { classification: any }) => elm.classification)
           .reverse();
 
@@ -135,6 +133,26 @@ export default function Home() {
     },
   };
 
+  const config = {
+    chart: {
+      id: "basic-bar",
+    },
+    xaxis: {
+      categories: xAxis,
+    },
+    stroke: {
+      show: true,
+      curve: 'smooth',
+    },
+  };
+
+  const series = [
+    {
+      name: "series-1",
+      data: yAxis,
+    }
+  ];
+
   return (
     <main className="container mx-auto py-20 px-4">
       <Navbar onClose={getDataSet} onSuccess={successToast} onError={errorToast} />
@@ -159,35 +177,22 @@ export default function Home() {
               <h1 className="md:text-xl text-md font-bold text-slate-600">
                 {CONSTANTS.CHART.TITLE}
               </h1>
-
-              {/* <div className="w-full max-w-[100px]">
-                <p className="text-xs mb-1">{CONSTANTS.CHART.LEGEND}</p>
-                <p className="text-xs text-green-500 font-bold">{CONSTANTS.CHART.COEF}</p>
-                <p className="text-xs text-red-500 font-bold">{CONSTANTS.CHART.CLASS}</p>
-              </div> */}
             </div>
             {selectedData?.engelsCurvesResponse && (
               <>
-                <Line
+                {/* <Line
                   options={options}
                   data={dataSetComplete}
                   width={400}
                   height={400}
+                /> */}
+                <Chart
+                  options={config}
+                  series={series}
+                  type="line"
+                  width="400"
+                  height="400"
                 />
-                {/* <div className="flex justify-between ml-10">
-                  {angularCoefficients.map((e: string, i: string) => {
-                    return (
-                      <p key={i} className="text-xs text-green-500 font-bold">{Number(e).toFixed(2)}</p>
-                    )
-                  })}
-                </div>
-                <div className="flex justify-between ml-10">
-                  {classifications.map((e: string, i: string) => {
-                    return (
-                      <p key={i} className="text-xs text-red-500 font-bold">{Number(e).toFixed(0)}</p>
-                    )
-                  })}
-                </div> */}
               </>
             )}
           </div>
