@@ -1,6 +1,6 @@
 export const CONSTANTS = {
     NAVBAR: {
-        TITLE: 'Classificação de Bens',
+        TITLE: 'Classificação',
         BUTTON_TITLE: 'Novo Produto',
     },
     CHART: {

@@ -24,6 +24,7 @@ export const Navbar = ({ onClose, onSuccess, onError }: NavbarProps) => {
   });
 
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openAboutModal, setOpenAboutModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<PostProductProps> = async (data) => {
@@ -44,7 +45,7 @@ export const Navbar = ({ onClose, onSuccess, onError }: NavbarProps) => {
         if (data.status === 400) {
           onError();
         } else {
-            onSuccess();
+          onSuccess();
         }
       })
       .catch((err) => console.error(err))
@@ -63,17 +64,34 @@ export const Navbar = ({ onClose, onSuccess, onError }: NavbarProps) => {
         <h4 className="self-center text-lg font-bold text-blue-700">
           {CONSTANTS.NAVBAR.TITLE}
         </h4>
-        <button
-          type="button"
-          onClick={() => setOpenModal(true)}
-          className="text-white flex justify-center items-center gap-2 bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          <span className="md:block hidden">
-            {CONSTANTS.NAVBAR.BUTTON_TITLE}
-          </span>
-          <PlusCircle size={16} color={"white"} />
-        </button>
+
+        <div className="flex flex-row gap-4">
+          <button
+            className="text-blue-700 hover:text-white transition-all flex justify-center items-center gap-2 bg-white hover:bg-blue-700 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={() => setOpenAboutModal(true)}
+          >
+            Sobre
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpenModal(true)}
+            className="text-white flex justify-center items-center gap-2 bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            <span className="md:block hidden">
+              {CONSTANTS.NAVBAR.BUTTON_TITLE}
+            </span>
+            <PlusCircle size={16} color={"white"} />
+          </button>
+        </div>
       </div>
+
+      <Modal show={openAboutModal} onClose={() => setOpenAboutModal(false)}>
+        <Modal.Header> Titulo </Modal.Header>
+
+        <Modal.Body>
+          <p> Como funciona </p>
+        </Modal.Body>
+      </Modal>
 
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { Line } from "react-chartjs-2";
 import { LoaderIcon } from "lucide-react";
 import {
@@ -62,15 +63,12 @@ export default function Home() {
       .then((data) => {
         setSelectedData(data);
 
-        const orderedData = data.engelsCurvesResponse
-          .sort(function (a: any, b: any) {
-            return (Number(a.amount) - Number(b.amount));
-          });
+        const orderedData = data.engelsCurvesResponse;
 
         const xAxis = orderedData
-          .map((elm: { amount: any }) => Number(elm.amount));
+          .map((elm: { amount: any }) => Number(elm.amount)).reverse();
         const yAxis = orderedData
-          .map((elm: { income: any }) => Number(elm.income));
+          .map((elm: { income: any }) => Number(elm.income)).reverse();
 
         const angularCoefficients = orderedData
           .map((elm: { angularCoefficient: any }) => elm.angularCoefficient)
@@ -113,11 +111,11 @@ export default function Home() {
     });
 
   const dataSetComplete = {
-    labels: xAxis,
+    labels: yAxis,
     datasets: [
       {
-        label: "Coeficiente Angular: ",
-        data: yAxis,
+        label: "Quantidade X Renda",
+        data: xAxis,
         borderColor: "rgb(29 78 216)",
         backgroundColor: "rgb(147 197 253)",
       },
@@ -125,6 +123,7 @@ export default function Home() {
   };
 
   const options = {
+    indexAxis: 'y',
     responsive: true,
     plugins: {
       legend: {
@@ -132,6 +131,7 @@ export default function Home() {
       },
     },
   };
+
 
   const config = {
     chart: {
@@ -180,19 +180,26 @@ export default function Home() {
             </div>
             {selectedData?.engelsCurvesResponse && (
               <>
-                {/* <Line
-                  options={options}
-                  data={dataSetComplete}
-                  width={400}
-                  height={400}
-                /> */}
-                <Chart
+                <div className="pl-4 py-4 relative">
+                  <Line
+                    options={options}
+                    data={dataSetComplete}
+                    width={300}
+                    height={300}
+                  />
+                  <p className="absolute text-xs font-bold top-1/2 -left-6 -translate-y-2/4 origin-bottom -rotate-90">Quantidade</p>
+                  <p className="absolute text-xs font-bold -bottom-2 right-1/2 translate-x-2/4">Renda</p>
+                </div>
+                {/* <Chart
                   options={config}
                   series={series}
                   type="line"
                   width="400"
                   height="400"
-                />
+                /> */}
+                <p className="text-justify text-sm mt-5">
+                  {selectedData?.observation}
+                </p>
               </>
             )}
           </div>
