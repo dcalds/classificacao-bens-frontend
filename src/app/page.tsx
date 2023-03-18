@@ -123,7 +123,7 @@ export default function Home() {
   };
 
   const options = {
-    indexAxis: 'y',
+    indexAxis: 'y' as any,
     responsive: true,
     plugins: {
       legend: {
@@ -187,8 +187,8 @@ export default function Home() {
                     width={300}
                     height={300}
                   />
-                  <p className="absolute text-xs font-bold top-1/2 -left-6 -translate-y-2/4 origin-bottom -rotate-90">Quantidade</p>
-                  <p className="absolute text-xs font-bold -bottom-2 right-1/2 translate-x-2/4">Renda</p>
+                  <p className="absolute text-xs font-bold top-1/2 -left-6 -translate-y-2/4 origin-bottom -rotate-90">Renda</p>
+                  <p className="absolute text-xs font-bold -bottom-2 right-1/2 translate-x-2/4">Quantidade</p>
                 </div>
                 {/* <Chart
                   options={config}
@@ -197,8 +197,22 @@ export default function Home() {
                   width="400"
                   height="400"
                 /> */}
+                <br />
+                <h2>
+                  <b>Observações do bem {selectedData?.name}</b>
+                </h2>
                 <p className="text-justify text-sm mt-5">
-                  {selectedData?.observation}
+                  {
+                    selectedData?.observation.split("<br/>").map(function (item, idx) {
+                      return (
+                        <span key={idx}>
+                          {item}
+                          <br />
+                        </span>
+                      )
+                    })
+                  }
+
                 </p>
               </>
             )}
@@ -234,7 +248,7 @@ export default function Home() {
               dataSet.items.map((elm, idx) => {
                 return (
                   <div key={idx} onClick={() => selectDataSet(elm.id)}>
-                    <Product name={elm.name} />
+                    <Product name={`${elm.name} - ${elm.registration}`} />
                   </div>
                 );
               })}

@@ -7,6 +7,7 @@ export type ApiResponseProps = {
 export type EngelsCurvesResponseProps = {
     id: string,
     name: string,
+    registration: string,
     engelsCurvesResponse: ProductProps[]
 }
 

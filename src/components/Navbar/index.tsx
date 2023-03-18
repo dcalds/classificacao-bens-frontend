@@ -86,10 +86,31 @@ export const Navbar = ({ onClose, onSuccess, onError }: NavbarProps) => {
       </div>
 
       <Modal show={openAboutModal} onClose={() => setOpenAboutModal(false)}>
-        <Modal.Header> Titulo </Modal.Header>
+        <Modal.Header> Sobre a ferramenta </Modal.Header>
 
         <Modal.Body>
-          <p> Como funciona </p>
+          <p className="text-justify text-sm mt-5">
+            Essa é uma ferramenta desenvolvida por alunos da UFOP para a disciplina de ENP150 - Economia com o
+            intúito de ser uma aplicação didática para o entendimento da classificação de bens através da curva de Engels.
+            A curva de Engels ela relaciona o bem com a renda e a quantidade consumida de acordo com a renda e de acordo com o coeficiente angular da curva,
+            podemos classificar se o bem é normal/superior ou inferior.
+          </p>
+
+          <br />
+          <b>Instruções de uso</b>
+          <p className="text-justify text-sm mt-5">
+            O painel da direita lista os produtos que foram cadastrados e para visualizar a sua curva e classificação,
+            basta clicar que o gráfico será plotado do lado esquerdo.
+            <br />
+            <br />
+            Para cadastrar um novo bem, basta clicar no botão “Novo Produto” no canto superior direito da tela.
+            Informar o nome do bem, a sua matrícula e adicionar os pontos da curva. Para cada ponto a adicionar,
+            basta clicar no botão adicionar para quantos pontos quiser. Após informar todos os pontos,
+            clique em salvar que o produto será inserido no banco de dados e listado no grid da direita.
+            Para visualizar o produto que acabou de cadastrar, basta clicar nele.
+          </p>
+
+
         </Modal.Body>
       </Modal>
 
