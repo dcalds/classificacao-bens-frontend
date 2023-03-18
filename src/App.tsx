@@ -1,7 +1,4 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-
+import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { LoaderIcon } from "lucide-react";
 import {
@@ -14,12 +11,11 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Navbar, Product } from "@/components";
-import { ApiResponseProps } from "@/types";
-import { CONSTANTS } from "@/utils/constants";
-import { ToastContainer, toast } from "react-toastify";
 
-import Chart from "react-apexcharts";
+import { Navbar, Product } from "./components";
+import { ApiResponseProps } from "./types";
+import { CONSTANTS } from "./utils/constants";
+import { ToastContainer, toast } from "react-toastify";
 
 ChartJS.register(
   CategoryScale,
@@ -132,27 +128,6 @@ export default function Home() {
     },
   };
 
-
-  const config = {
-    chart: {
-      id: "basic-bar",
-    },
-    xaxis: {
-      categories: xAxis,
-    },
-    stroke: {
-      show: true,
-      curve: 'smooth',
-    },
-  };
-
-  const series = [
-    {
-      name: "series-1",
-      data: yAxis,
-    }
-  ];
-
   return (
     <main className="container mx-auto py-20 px-4">
       <Navbar onClose={getDataSet} onSuccess={successToast} onError={errorToast} />
@@ -190,20 +165,13 @@ export default function Home() {
                   <p className="absolute text-xs font-bold top-1/2 -left-6 -translate-y-2/4 origin-bottom -rotate-90">Renda</p>
                   <p className="absolute text-xs font-bold -bottom-2 right-1/2 translate-x-2/4">Quantidade</p>
                 </div>
-                {/* <Chart
-                  options={config}
-                  series={series}
-                  type="line"
-                  width="400"
-                  height="400"
-                /> */}
                 <br />
                 <h2>
                   <b>Observações do bem {selectedData?.name}</b>
                 </h2>
                 <p className="text-justify text-sm mt-5">
                   {
-                    selectedData?.observation.split("<br/>").map(function (item, idx) {
+                    selectedData?.observation.split("<br/>").map(function (item: any, idx: any) {
                       return (
                         <span key={idx}>
                           {item}
@@ -232,7 +200,7 @@ export default function Home() {
 
             {isLoading && (
               <div className="animate-spin">
-                <LoaderIcon size={24} color={"#333"} />
+                {/* <LoaderIcon size={24} color={"#333"} /> */}
               </div>
             )}
           </div>

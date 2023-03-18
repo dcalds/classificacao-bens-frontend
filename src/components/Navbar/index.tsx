@@ -1,4 +1,4 @@
-import { NavbarProps, PostProductProps } from "@/types";
+import { NavbarProps, PostProductProps } from "../../types";
 import { PlusCircle, Trash } from "lucide-react";
 import { useState } from "react";
 import { Button, Modal, Spinner } from "flowbite-react";
@@ -9,7 +9,7 @@ import {
   useFieldArray,
   Controller,
 } from "react-hook-form";
-import { CONSTANTS } from "@/utils/constants";
+import { CONSTANTS } from "../../utils/constants";
 
 export const Navbar = ({ onClose, onSuccess, onError }: NavbarProps) => {
   const {
